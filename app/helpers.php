@@ -421,13 +421,18 @@ if (!function_exists('diffBetweenDays')) {
     }
 }
 
+use Carbon\CarbonPeriod;
+
 if (!function_exists('daysPeriods')) {
     function daysPeriods($start_date, $end_date)
     {
-        $days_periods = CarbonPeriod::create($start_date, $end_date)->map(fn ($date) => $date->toDateString());
+        $days_periods = CarbonPeriod::create($start_date, $end_date)->map(function ($date) {
+            return $date->toDateString();
+        });
         return iterator_to_array($days_periods);
     }
 }
+
 
 if (!function_exists('subDays')) {
     function subDays($date, $days = 1, $format = 'Y-m-d')
